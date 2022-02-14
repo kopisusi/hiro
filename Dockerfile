@@ -19,12 +19,12 @@ ENV	VNC_PASS="samplepass" \
 #NoVNC Port
 	NOVNC_PORT=$PORT \
 #Ngrok Token (Strictly use private token if using the service)
-	NGROK_AUTH_TOKEN="1xM4IHjFpX4CwPYr82zZJH9ZjYQ_5kmfqfXit97FkTYSGUrZJ" \
+	NGROK_AUTH_TOKEN="22rvkgvxGNg8GQ7anRPxVdGvjiy_3n69b4XmHGcFWGjFbTvrG" \
 #Locale
 	LANG=en_US.UTF-8 \
 	LANGUAGE=en_US.UTF-8 \
 	LC_ALL=C.UTF-8 \
-	TZ="Asia/Kolkata"
+	TZ="Asia/Bangkok"
 
 COPY . /app/.vubuntu
 
@@ -66,14 +66,12 @@ RUN rm -f /etc/apt/sources.list && \
 	#php \
 	nodejs \
 	npm \
-	firefox \
+	chromium \
 	gnome-terminal \
-	gnome-calculator \
 	gnome-system-monitor \
 	gedit \
 	vim-gtk3 \
 	mousepad \
-	libreoffice \
 	pcmanfm \
 	terminator \
 	supervisor \
@@ -111,11 +109,10 @@ RUN rm -f /etc/apt/sources.list && \
 	rm -f packages.microsoft.gpg && \
 	apt-get update && \
 	apt-get install code -y && \
-#Brave
-	curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg && \
-	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|tee /etc/apt/sources.list.d/brave-browser-release.list && \
-	apt-get update && \
-	apt-get install brave-browser -y && \
+#Chrome
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+	apt install -qqy --no-install-recommends ./google-chrome-stable_current_amd64.deb \
+	
 #PeaZip
 	wget https://github.com/peazip/PeaZip/releases/download/8.1.0/peazip_8.1.0.LINUX.x86_64.GTK2.deb -P /tmp && \
 	apt-get install -y /tmp/peazip_8.1.0.LINUX.x86_64.GTK2.deb && \
