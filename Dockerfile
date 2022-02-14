@@ -102,13 +102,7 @@ RUN rm -f /etc/apt/sources.list && \
 #TimeZone
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 	echo $TZ > /etc/timezone && \
-#VS Code
-	wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
-	install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ && \
-	echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list && \
-	rm -f packages.microsoft.gpg && \
-	apt-get update && \
-	apt-get install code -y && \
+
 #Chrome
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 	apt install -qqy --no-install-recommends ./google-chrome-stable_current_amd64.deb \
